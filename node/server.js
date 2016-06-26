@@ -30,6 +30,10 @@ app.get('/upload-recording', function(req, res){
   res.render("upload-recording");
 });
 
+app.get('/recording_data', function(req, res){
+  res.render("recording_data");
+});
+
 app.get('/check_status', function(req, res){
     var task_id = req.query.task_id;
     console.log("Inside check_status for task_id = " + task_id);
