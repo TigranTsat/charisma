@@ -66,7 +66,8 @@ app.route('/upload_file')
             fstream.on('close', function () {    
                 console.log("Upload Finished of " + filename);    
                 task_status = db_gate.create_task_id(file_id);
-                business_logic.start_audio_processing(file_id);
+                // TODO: use date or timestamp instead of filename
+                business_logic.start_audio_processing(file_id, filename);
                 res.json(task_status);
             });
         });
