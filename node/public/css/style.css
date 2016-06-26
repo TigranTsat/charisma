@@ -12,13 +12,13 @@ html, body{
    font-size: 100%;
    background:#eeeeee;
 }
+.container.recording-analysis{
+    background: #FFF;
+}
 a {
   text-decoration: none;
 }
-.chart{
-    max-height: 500px;
-    max-width: 500px;
-}
+
 a:hover {
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
