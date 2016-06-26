@@ -89,7 +89,7 @@ module.exports = {
 	        return [];
 	    } else {
 	    	var arr = new Object();
-	    	var banned = ["and", "the", "a", "this", "is", "that","you",];
+	    	var banned = ["and", "the", "a", "this", "is", "that","you","he","she","it","them","an","on","in","or","of","to","I"];
 			for (var i = 0; i < list_of_words.length; i++) {
 				// If word in arr increment
 				// Else add word and set count to 1
@@ -99,7 +99,7 @@ module.exports = {
 				} else if (banned.indexOf(word) == -1) {
 					arr[word] = 1;
 				}
-			}			
+			}		
 		    return arr;
 	    }
 	}

@@ -63,9 +63,19 @@
                 }
 
                 // Now you can get the parameters you want like so:
-                var abc = params.abc;
                 return params;
             }
+            url_params = getUrlParams();
+            var report_id = url_params.report_id;
+            if (report_id == undefined || report_id == "") {
+                console.log("Wrong report_id");
+            } else {
+                console.log("Using report_id = " + report_id);
+            }
+            $.ajax({url: "get_analysis?task_id=" + report_id , success: function(result){
+                console.log("get_analysis success");
+                // TODO: render graphs
+            }});
 
                 var ctx = document.getElementById("clarity");
                 var clarity = new Chart(ctx, {
