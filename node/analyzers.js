@@ -115,21 +115,41 @@ module.exports = {
             //   [ 'amazing', 2 ],
 		    return items;
 	    }
-	}
+	},
 	
     /*
         cluster words to buskets
     */
-    /*
-    analyze_words_buskets: function(words_time) {
-        // It will make sense to run that on top of text
-        // http://www.genardmethod.com/blog/bid/184287/25-Words-or-Phrases-to-Avoid-in-Speeches-and-Presentations
-        // TODO: add more words
-        var bad_words = ["fuck", "shit"];
-        var busswords = [];
-        var not_desirible = ["weakness", "my topic is", "sorry for", "the next slide shows"];
-        var other_words = [];
-        // TODO:
+    
+    analyze_words_baskets: function(words_time) {
+    	var list_of_words = words_time.actions[0].result.document;
+        var word;
+        var basket = {bad_words:0,buzzwords:0, not_desireble:0, neutral:0}
+        //Index 0
+        var bad_list = ["fuck", "shit","asshole","whore","everyone"];
+        //index 1
+        var buzz_list = ["technology","machine","awesome","hack"];
+        //index 2
+        var not_list = ["weakness", "my topic is", "sorry for", "the next slide shows"];
+        //index 3
+
+        for (var i = 0; i < list_of_words.length; i++) {
+				// If word in a basket then increment
+				// Else add word to neautral and set count to +1
+
+				word = list_of_words[i].content;
+				if (bad_list.indexOf(word) > -1) {
+					basket["bad_words"] += 1;
+				} else if(buzz_list.indexOf(word) > -1) {
+					basket["buzzwords"] += 1;
+				}else if (not_list.indexOf(word) > -1) {
+					basket["not_desirible"] += 1;
+				}else{
+					basket["neutral"] +=1;
+				}
+		}
+		return basket;
     }
-*/
+
+
 };

@@ -15,3 +15,6 @@ console.log(word_duration)
 var word_distribution = analyzers.analyze_word_distribution(word_times)
 console.log(word_distribution)
 
+var word_basket = analyzers.analyze_words_baskets(word_times)
+console.log(word_basket)
+
