@@ -2,7 +2,8 @@
 // require express
 var express = require("express");
 var db_gate = require("./db_gate")();
-var analyzers = require('./analyzers.js')
+var analyzers = require('./analyzers.js');
+var business_logic = require('./business_logic.js')
 
 var busboy = require('connect-busboy'); //middleware for form/file upload
 var fs = require('fs-extra');       //File System - for file manipulation
@@ -63,8 +64,9 @@ app.route('/upload_file')
             file.pipe(fstream);
             console.log("Created pipe")
             fstream.on('close', function () {    
-                console.log("Upload Finished of " + filename);              
+                console.log("Upload Finished of " + filename);    
                 task_status = db_gate.create_task_id(file_id);
+                business_logic.start_audio_processing(file_id);
                 res.json(task_status);
             });
         });
