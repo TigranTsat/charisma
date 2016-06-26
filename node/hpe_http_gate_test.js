@@ -20,7 +20,18 @@ analyze_report = {
     analyzers: {}
 }
 db_gate.create_analyze_report(analyze_report);
-db_gate.get_analyze_report(rand_task_id);
+var get_analyze_report = db_gate.get_analyze_report(rand_task_id);
+if (get_analyze_report == undefined) {
+    throw { name: "select get_analyze_report is undefined "}
+}
+list_of_all_reports = db_gate.get_list_of_all_reports();
+if (list_of_all_reports == undefined) {
+    throw { name: "list_of_all_reports response is undefined "}
+}
+if (list_of_all_reports.length < 1) {
+    throw { name: "list_of_all_reports length should be >= 1"}
+}
+
 
 // TODO: place with real wav file
 hpe_http_gate.recognizespeech('simple_audio1.m4a', function() {

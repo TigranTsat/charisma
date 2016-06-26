@@ -127,8 +127,14 @@ module.exports = function() {
             console.error("Point 0987: res is undefined");
         }
         return res;
+    },
+    this.get_list_of_all_reports = function() {
+        console.log("Inside 'get_list_of_all_reports'");
+        list_of_suited_reports = global.db.select_values("reports", function (entry) {
+                return entry
+        });
+        return list_of_suited_reports;
     }
-
     return this;
 
     
