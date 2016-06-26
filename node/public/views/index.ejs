@@ -3,6 +3,7 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/moment.min.js"></script>
+    <script src="js/notify.js"></script>
     <!-- Custom Theme files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
@@ -116,11 +117,14 @@
                 console.log(data);
                 task_id = data.task;
                 execute_once_task_completed(task_id, function(task_id) {
-                    console.log("Task " + task_id + " is completed. Requesting data")
+                    console.log("Task " + task_id + " is completed. Requesting data");
+                    // nagivate page
+                    location.href = ("/recording_analysis?report_id=" + task_id);
                 })
             }
         })
-        console.log("asds");
+        console.log("We are processing request");
+        $.notify("We are processing request. Please, wait. We will navigate you once analysis is done", "warn");
         return false;
     }
 
