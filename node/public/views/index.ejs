@@ -83,7 +83,7 @@
             task_status = result.status;
             console.log("Checked result status for task_id = " + task_id + ". Status = " + task_status);
             if (task_status != "COMPLETED") {
-                setTimeout(function(){ 
+                setTimeout(function(){
                     execute_once_task_completed(task_id, callback);
                 }, 1000)
             } else {
@@ -103,6 +103,7 @@
         formData.append('fileUpload', $('input[type=file]')[0].files[0]);
         console.log(formData);
         $('input[name=title]').val(moment())
+        console.log($('input[name=title]').val())
         $.ajax({
             url: 'upload_file?file_id=' + file_id + '&title='+title,
             data: formData,
@@ -125,7 +126,7 @@
     // Request all analysis present in the system
     $.ajax({url: "all_analysis", success: function(result){
         console.log("Current all_analysis length = " + result.length);
-    }});    
+    }});
 
 
 
