@@ -32,9 +32,8 @@ if (list_of_all_reports.length < 1) {
     throw { name: "list_of_all_reports length should be >= 1"}
 }
 
-
 // TODO: place with real wav file
 var jobID = 0;
 hpe_http_gate.recognizespeech('simple_audio1.m4a', function(err, resp, body) {
-		console.log(resp.body);
+    console.log(body.actions[0].result.document[0].content);
 })
