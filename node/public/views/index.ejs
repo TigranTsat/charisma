@@ -136,7 +136,7 @@
         // </a>
         $('#past_recordings_table').html("");
         result.forEach(function(data) {
-            $('#past_recordings_table').append('<a href="recording_data/<recording_id>">' +
+            $('#past_recordings_table').append('<a href="recording_analysis?report_id=' +  data.report_id +'">' +
                                                '<li>' +
                                                data.name +
                                                '<span class="score">' + data.total_score + '</span>' +

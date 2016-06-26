@@ -3,13 +3,21 @@ module.exports = {
         return a list of numbers representing words said per second.
     */
   analyze_words: function (words_time) {
+    console.log("words_time:", words_time);
     var list_of_words = words_time.actions[0].result.document;
     if (list_of_words.length == 0) {
         console.warn("list_of_words.length == 0")
         return [];
     }
     var last_duration = list_of_words[list_of_words.length - 1].offset;
+    if (last_duration < 1000 || last_duration == NaN || last_duration == undefined ) {
+        console.warn("last_duration < 1000. ", list_of_words, 
+                     "last_duration = ", last_duration,
+                     "last word group", list_of_words[list_of_words.length - 1]);
+        throw { name: 'wrong data' }
+    }
     var total_sec = Math.ceil(last_duration / parseFloat(1000));
+    console.log("Creating array with total_sec = ", total_sec, "last_duration = ", last_duration);
     var seconds_stats = new Array(total_sec);
     for (var i = 0; i < seconds_stats.length; i++) {
         seconds_stats[i] = 0;
@@ -67,9 +75,39 @@ module.exports = {
 	    	return pronunciation_speed;
 	    }
 	},
+
+
+	/*
+	Returns an object list of words with their counts to show the distribution of words
+	*/
+
+	analyze_word_distribution: function(words_time) {
+		var list_of_words = words_time.actions[0].result.document;
+
+		if (list_of_words.length == 0) {
+	        console.warn("list_of_words.length == 0")
+	        return [];
+	    } else {
+	    	var arr = new Object();
+	    	var banned = ["and", "the", "a", "this", "is", "that","you",];
+			for (var i = 0; i < list_of_words.length; i++) {
+				// If word in arr increment
+				// Else add word and set count to 1
+				word = list_of_words[i].content;
+				if (list_of_words[i].content in arr) {
+					arr[word] += 1;
+				} else if (banned.indexOf(word) == -1) {
+					arr[word] = 1;
+				}
+			}			
+		    return arr;
+	    }
+	}
+	
     /*
         cluster words to buskets
     */
+    /*
     analyze_words_buskets: function(words_time) {
         // It will make sense to run that on top of text
         // http://www.genardmethod.com/blog/bid/184287/25-Words-or-Phrases-to-Avoid-in-Speeches-and-Presentations
@@ -80,5 +118,5 @@ module.exports = {
         var other_words = [];
         // TODO:
     }
-
+*/
 };
