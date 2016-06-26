@@ -2,6 +2,7 @@
     <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/moment.min.js"></script>
     <!-- Custom Theme files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
@@ -75,28 +76,180 @@
     	});
     });
     //]]>
+
+    execute_once_task_completed = function(task_id, callback) {
+        $.ajax({url: "check_status?task_id=" + task_id, success: function(result){
+            // console.log("result = ", result);
+            task_status = result.status;
+            console.log("Checked result status for task_id = " + task_id + ". Status = " + task_status);
+            if (task_status != "COMPLETED") {
+                setTimeout(function(){
+                    execute_once_task_completed(task_id, callback);
+                }, 1000)
+            } else {
+                console.log("Task " + task_id + " was completed.");
+                callback(task_id);
+            }
+        }});
+    }
+
+    on_submit_click = function(event) {
+        moment().format();
+        var title = moment().format('MMMM Do YYYY, h:mm:ss a');
+        console.log('title = ', title);
+        var file_id = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
+        var formData = new FormData();
+        var files = $('input[type=file]')[0];
+        console.log("files: ", files);
+        formData.append('fileUpload', $('input[type=file]')[0].files[0]);
+        console.log(formData);
+        $('input[name=title]').val(moment())
+
+        $.ajax({
+            url: 'upload_file?file_id=' + file_id + '&title='+title,
+            data: formData,
+            // THIS MUST BE DONE FOR FILE UPLOADING
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(data){
+                console.log(data);
+                task_id = data.task;
+                execute_once_task_completed(task_id, function(task_id) {
+                    console.log("Task " + task_id + " is completed. Requesting data")
+                })
+            }
+        })
+        console.log("asds");
+        return false;
+    }
+
+    // Request all analysis present in the system
+    $.ajax({url: "all_analysis", success: function(result){
+        console.log("Current all_analysis length = " + result.length);
+        // +======== SECTION LOOKS LIKE
+        // <a href="recording_data/<recording_id>">
+        //     <li>
+        //         Title
+        //         <span class="score">45</span>
+        //     </li>
+        // </a>
+        $('#past_recordings_table').html("");
+        result.forEach(function(data) {
+            $('#past_recordings_table').append('<a href="recording_data/<recording_id>">' +
+                                               '<li>' +
+                                               data.name +
+                                               '<span class="score">' + data.total_score + '</span>' +
+                                               '</li>' +
+                                               '</a>')
+        });
+    }});
+
+
+
     </script>
     <!--//video-->
 
 </head>
 <body>
     <div class="container">
-        <div class="col-xs-8 col-xs-offset-2">
+        <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
             <div class="login">
-    			<h2 style="text-align: center;">UPLOAD AUDIO</h2>
-                <form method='post' action='upload_file?file_id=1234' enctype="multipart/form-data">
+    			<h2 style="text-align: center; margin-bottom: 20px;">UPLOAD AUDIO</h2>
+                <form id="fileUpload" method='post' action='upload_file?file_id=1234' enctype=multipart/form-data>
+                    <input type="hidden" name="title" value="moment()"/>
                     <input type='file' name='fileUploaded'>
                     <div class="send">
-                        <input class="pull-left" type='submit' value="Upload">
+                        <input id="upload_file_button" style="margin-left: 0px;" type='submit' value="Upload" onclick="on_submit_click(this); return false;">
                     </div>
                 </form>
-
-    			  <div class="clearfix"> </div>
+    			<div class="clearfix"> </div>
     		 </div>
         </div>
+        <div class="col-sm-10 col-sm-offset-1 col-md-6 col-md-offset-3">
+            <div class="recording-table">
+                <h4>PAST RECORDINGS</h4>
+                <ul class="table" id="past_recordings_table">
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
     </div>
-
-
-
-
 </body>

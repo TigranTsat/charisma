@@ -17,11 +17,17 @@ module.exports = {
         analyze_report = {
             report_id: file_id,
             name: name,
+            total_score: 0,
             analyzers: {}
         };
         var res;
         res = analyzers.analyze_words(data);
         analyze_report.analyzers["words_analyzer"] = res;
+        res = analyzers.analyze_clarity(data);
+        analyze_report.analyzers["clarity_analyzer"] = res;
+        res = analyzers.analyze_word_durations(data);
+        analyze_report.analyzers["word_duration_analyzer"] = res;
+
         // TODO: add status with more analyzers
 
         // At the end
