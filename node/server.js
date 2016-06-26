@@ -15,10 +15,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded());
 
 // static content
-app.use(express.static(path.join(__dirname, './views')));
+app.use(express.static(path.join(__dirname, './public')));
 
 // setting up ejs and our views folder
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './public/views'));
 app.set('view engine', 'ejs');
 
 // root route to render the index.ejs view
@@ -36,6 +36,7 @@ app.get('/check_status', function(req, res){
     task_status = db_gate.create_task_id()
   res.render("/check_status?id=<id>");
 });
+
 
 // creating a server using http module:
 var analyzers = require('./analyzers.js')
