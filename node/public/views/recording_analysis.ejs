@@ -181,30 +181,30 @@
                 })
 
                 // ============================================
+                var words_per_sec = report.analyzers.words_analyzer;
+                var labels_for_words_per_sec = [];
+                var list_of_colors = []
+                var max_time = 100;
+                if (words_per_sec.length < max_time) {
+                    max_time = words_per_sec.length;
+                }
+                for (var i = 0; i <= max_time; i += 1) {
+                    labels_for_words_per_sec.push(i);
+                    list_of_colors.push('rgba(255, 99, 132, 0.2)');
+                }
+
                 var ctx = document.getElementById("wordsPerSecond");
 
                 var wordsPerSecond = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        labels: labels_for_words_per_sec,
                         datasets: [{
                             label: 'words',
-                            data: [3, 10, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
+                            data: words_per_sec,
+                            backgroundColor: list_of_colors,
                             borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
+                                'rgba(255,99,132,1)'
                             ],
                             borderWidth: 1
                         }]
