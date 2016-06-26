@@ -95,7 +95,8 @@
 
     on_submit_click = function(event) {
         moment().format();
-        var title = moment();
+        var title = moment().format('MMMM Do YYYY, h:mm:ss a');
+        console.log('title = ', title);
         var file_id = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
         var formData = new FormData();
         var files = $('input[type=file]')[0];
@@ -103,7 +104,7 @@
         formData.append('fileUpload', $('input[type=file]')[0].files[0]);
         console.log(formData);
         $('input[name=title]').val(moment())
-        console.log($('input[name=title]').val())
+
         $.ajax({
             url: 'upload_file?file_id=' + file_id + '&title='+title,
             data: formData,
@@ -135,8 +136,8 @@
         // </a>
         $('#past_recordings_table').html("");
         result.forEach(function(data) {
-            $('#past_recordings_table').append('<a href="recording_data/<recording_id>">' + 
-                                               '<li>' + 
+            $('#past_recordings_table').append('<a href="recording_data/<recording_id>">' +
+                                               '<li>' +
                                                data.name +
                                                '<span class="score">' + data.total_score + '</span>' +
                                                '</li>' +
