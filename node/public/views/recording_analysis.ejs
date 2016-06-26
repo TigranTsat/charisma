@@ -139,6 +139,40 @@
                 $("#transcription_section").text(transcript);
                 
                 // ============================================
+
+                var word_distributions_list = report.analyzers.word_distribution_analyzer;
+                var total_words = 0;
+                word_distributions_list.forEach(function(entry_lst) {
+                    var word = entry_lst[0];
+                    var count = entry_lst[1];
+                    total_words += count;
+                });
+                var top_items_word_distributions_list = word_distributions_list.slice(0, 10);
+                top_items_word_distributions_list_filtered = []
+                top_items_word_distributions_list.forEach(function(entry_lst) {
+                    var word = entry_lst[0];
+                    var count = entry_lst[1];
+                    if (count > 1) {
+                        top_items_word_distributions_list_filtered.push(entry_lst);
+                    }
+                });
+                console.log("top_items_word_distributions_list_filtered: ", top_items_word_distributions_list_filtered);
+                $("#tbody_occurences_in_words").html("");
+                top_items_word_distributions_list_filtered.forEach(function(entry_lst) {
+                    var word = entry_lst[0];
+                    var count = entry_lst[1];
+                    var percent = (count / total_words).toPrecision(2) * 10;
+                    var risk_class = "low";
+                    var risk_val = "Low";
+                    $("#tbody_occurences_in_words").append("<tr>" + 
+                            "<th>" + word + "</td>" + 
+                            "<td>" + count +"</td>" +
+                              "<td>" + percent + "p. </td>" + 
+                              "<td class='high'>High</td>" +
+                            "</tr>");
+                })
+
+                // ============================================
                 var ctx = document.getElementById("wordsPerSecond");
 
                 var wordsPerSecond = new Chart(ctx, {
@@ -189,7 +223,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="analysis-container">
-                        <h3 id="report_name"></h3>
+                        <h3 id="report_name">Repeated words</h3>
                     </div>
                 </div>
                 <div class="col-xs-12">
@@ -203,7 +237,7 @@
                               <th>Risk</th>
                             </tr>
                           </thead>
-                          <tbody>
+                          <tbody id="tbody_occurences_in_words">
                             <tr>
                               <th>crappy</td>
                               <td>153</td>
