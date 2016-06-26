@@ -47,11 +47,19 @@ module.exports = {
     value mean - number of word prononciation speeds per group.
     word prononciation spead = word duration / number of characters
   */
- /* analyze_word_durations: function(words_time) {
+    analyze_word_durations: function(words_time) {
 	var list_of_words = words_time.actions[0].result.document;
 	    if (list_of_words.length == 0) {
 	        console.warn("list_of_words.length == 0")
 	        return [];
+	    }else{
+	    	pronunciation_speed = new Array(list_of_words.length).fill(0);
+	    
+	    	for (var i = 0; i < list_of_words.length; i++) {
+	    		pronunciation_speed[i] = list_of_words[i].duration/list_of_words[i].content.length;
+	    		
+	    	}
+	    	return pronunciation_speed;
 	    }
-  }*/
+	}
 };

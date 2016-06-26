@@ -8,3 +8,7 @@ console.log(res)
 
 var clarity = analyzers.analyze_clarity(word_times)
 console.log(clarity)
+
+
+var word_duration = analyzers.analyze_word_durations(word_times)
+console.log(word_duration)
