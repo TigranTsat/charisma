@@ -84,6 +84,7 @@
 
 
             function draw_graphs(report) {
+                Chart.defaults.global.legend.display = false;
                 var report_name = report.name;
                 var total_score = report.total_score;
                 $("#report_name").text("Speech report for " + report_name);
@@ -99,7 +100,7 @@
                         labels: labels,
                         datasets: [{
 
-                            // label: '# of Votes',
+                            label: 'confidence',
                             data: clarity_list,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -140,7 +141,7 @@
                     data: {
                         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
                         datasets: [{
-                            label: '',
+                            label: 'words',
                             data: [3, 10, 3, 5, 2, 3],
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
@@ -179,6 +180,7 @@
     </script>
     <body>
         <div class="container recording-analysis">
+
             <div class="row">
                 <div class="col-xs-12">
                     <div class="analysis-container">
@@ -186,14 +188,53 @@
                     </div>
                 </div>
                 <div class="col-xs-12">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Word</th>
+                              <th># Occurences</th>
+                              <th>Frequency Index</th>
+                              <th>Risk</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>crappy</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="high">High</td>
+                            </tr>
+                            <tr>
+                              <th>awesome</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="med">Medium</td>
+                            </tr>
+                            <tr>
+                              <th>nice</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="low">Low</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
                     <div class="analysis-container">
-                        <h2>Clarity of Speech</h2>
+                        <h3>Clarity of Speech</h3>
+                        <p>
+                            This is how clearly the machine heard each word said.
+                        </p>
                         <canvas id="clarity" class="chart" width="400" height="400"></canvas>
                     </div>
                 </div>
                 <div class="col-xs-12">
                     <div class="analysis-container">
-                        <h2>Words Per Second</h2>
+                        <h3>Words Per Second</h3>
+                        <p>
+                        </p>
                         <canvas id="wordsPerSecond" class="chart" width="400" height="400"></canvas>
                     </div>
                 </div>
