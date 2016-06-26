@@ -29,7 +29,9 @@ app.get('/upload-recording', function(req, res){
   res.render("upload-recording");
 });
 
-app.get('/check_status?id=<id>', function(req, res){
+app.get('/check_status', function(req, res){
+    var task_id = req.query.task_id;
+    console.log("Inside check_status for task_id = " + task_id);
   res.render("/check_status?id=<id>");
 });
 
