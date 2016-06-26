@@ -1,6 +1,7 @@
 var hpe_http_gate = require('./hpe_http_gate.js')
 var db_gate = require("./db_gate")();
-var analyzers = require('./analyzers.js')
+var analyzers = require('./analyzers.js');
+var data = require('./data.js'); // TODO: this is HACK
 module.exports = {
     // file_id and task_id are same
     /*
@@ -29,5 +30,8 @@ module.exports = {
     }
     file_path = __dirname + '/files/' + file_id;
     hpe_http_gate.recognizespeech(file_path, on_hpe_recognizespeech);
+    // TODO: this is HACK!!!
+    word_times = data.get_words_time()
+    on_hpe_recognizespeech(word_times)
   }
 }
