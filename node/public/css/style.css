@@ -22,9 +22,11 @@ p{
     padding-top: 20px;
     padding-bottom: 20px;
 }
-th{
+th, td{
     font-family: 'SignikaNegative-Regular';
     font-weight: bold;
+    font-size: .85em;
+
 }
 td.high{
     color: #D22517;
@@ -614,10 +616,12 @@ li.nbs-flexisel-item p {
 /*--weather end here--*/
 /*--login start here--*/
 .analysis-container{
+    text-align: center;
     margin-top: 20px;
     background: #fff;
     padding: 20px 30px 30px 30px;
 }
+
 .login, .recording-table {
   background: #fff;
   margin: 2em 0em 2em 0em;
