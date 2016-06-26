@@ -1,6 +1,7 @@
 
 // require express
 var express = require("express");
+var db_gate = require("./db_gate");
 
 //path module
 var path = require("path");
@@ -32,6 +33,7 @@ app.get('/upload-recording', function(req, res){
 app.get('/check_status', function(req, res){
     var task_id = req.query.task_id;
     console.log("Inside check_status for task_id = " + task_id);
+    task_status = db_gate.create_task_id()
   res.render("/check_status?id=<id>");
 });
 

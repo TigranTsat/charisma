@@ -1,5 +1,6 @@
 var http = require('http');
 var fs = require('fs');
+var db_gate = require("./db_gate")();
 module.exports = {
     recognizespeech: function(local_file_path, callback) {
         // https://dev.havenondemand.com/apis/recognizespeech#request
