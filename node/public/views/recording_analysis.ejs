@@ -1,0 +1,195 @@
+<head>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/moment.min.js"></script>
+
+    <script src="js/Chart.min.js"></script>
+
+    <!-- Custom Theme files -->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <!-- start-smoth-scrolling -->
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    	<script type="text/javascript">
+    			jQuery(document).ready(function($) {
+    				$(".scroll").click(function(event){
+    					event.preventDefault();
+    					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+    				});
+    			});
+    	</script>
+    <!-- //end-smoth-scrolling -->
+    <link href="css/jquery.countdown.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="js/jquery.countdown.js"></script>
+    <script src="js/script.js"></script>
+    <!--responsive tab script here-->
+    <script src="js/easyResponsiveTabs.js" type="text/javascript"></script>
+    		    <script type="text/javascript">
+    			    $(document).ready(function () {
+    			        $('#horizontalTab').easyResponsiveTabs({
+    			            type: 'default', //Types: default, vertical, accordion
+    			            width: 'auto', //auto or any width like 600px
+    			            fit: true   // 100% fit in a container
+    			        });
+    			    });
+    			   </script>
+    <!--//resposive tab-->
+    <script>
+        $(document).ready(function(c) {
+        	$('.cros').on('click', function(c){
+        		$('.user-profile').fadeOut('slow', function(c){
+        	  		$('.user-profile').remove();
+        		});
+        	});
+
+            //to get id and title of recording later...
+            getUrlParams = function(){
+                var params = {};
+
+                if (location.search) {
+                    var parts = location.search.substring(1).split('&');
+
+                    for (var i = 0; i < parts.length; i++) {
+                        var nv = parts[i].split('=');
+                        if (!nv[0]) continue;
+                        params[nv[0]] = nv[1] || true;
+                    }
+                }
+
+                // Now you can get the parameters you want like so:
+                return params;
+            }
+            url_params = getUrlParams();
+            var report_id = url_params.report_id;
+            if (report_id == undefined || report_id == "") {
+                console.log("Wrong report_id");
+            } else {
+                console.log("Using report_id = " + report_id);
+            }
+            $.ajax({url: "get_analysis?task_id=" + report_id , success: function(result){
+                console.log("get_analysis success");
+                draw_graphs(result);
+            }});
+
+            function draw_graphs(report) {
+                var report_name = report.name;
+                var total_score = report.total_score;
+                $("#report_name").text("Speech report for " + report_name);
+                var clarity_list = report.analyzers.clarity_analyzer;
+                var labels = [];
+                for (var i = 0; i <= 100; i += 5) {
+                    labels.push(i + "%");
+                }
+                var ctx = document.getElementById("clarity");
+                var clarity = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            // label: '# of Votes',
+                            data: clarity_list,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                var ctx = document.getElementById("wordsPerSecond");
+
+                var wordsPerSecond = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        datasets: [{
+                            label: '# of Votes',
+                            data: [12, 19, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+            }
+
+        });
+    </script>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3 id="report_name"></h3>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="analysis-container">
+                        <h2>Clarity of Speech</h2>
+                        <canvas id="clarity" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="analysis-container">
+                        <h2>Words Per Second</h2>
+                        <canvas id="wordsPerSecond" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+</head>

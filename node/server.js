@@ -30,8 +30,8 @@ app.get('/upload-recording', function(req, res){
   res.render("upload-recording");
 });
 
-app.get('/recording_data', function(req, res){
-  res.render("recording_data");
+app.get('/recording_analysis', function(req, res){
+  res.render("recording_analysis");
 });
 
 app.get('/check_status', function(req, res){
@@ -64,7 +64,7 @@ app.get('/all_analysis', function(req, res){
 app.route('/upload_file')
     .post(function (req, res, next) {
 
-        var fstream;    
+        var fstream;
         req.pipe(req.busboy);
         req.busboy.on('file', function (fieldname, file, filename) {
             var file_id = req.query.file_id;
@@ -73,8 +73,8 @@ app.route('/upload_file')
             fstream = fs.createWriteStream(__dirname + '/files/' + file_id);
             file.pipe(fstream);
             console.log("Created pipe")
-            fstream.on('close', function () {    
-                console.log("Upload Finished for " + title);    
+            fstream.on('close', function () {
+                console.log("Upload Finished for " + title);
                 task_status = db_gate.create_task_id(file_id);
                 // TODO: use date or timestamp instead of filename
                 business_logic.start_audio_processing(file_id, title);

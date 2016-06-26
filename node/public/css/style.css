@@ -15,6 +15,10 @@ html, body{
 a {
   text-decoration: none;
 }
+.chart{
+    max-height: 500px;
+    max-width: 500px;
+}
 a:hover {
   transition: 0.5s all;
   -webkit-transition: 0.5s all;
@@ -587,6 +591,11 @@ li.nbs-flexisel-item p {
 }
 /*--weather end here--*/
 /*--login start here--*/
+.analysis-container{
+    margin-top: 20px;
+    background: #fff;
+    padding: 20px 30px 30px 30px;
+}
 .login, .recording-table {
   background: #fff;
   margin: 2em 0em 2em 0em;

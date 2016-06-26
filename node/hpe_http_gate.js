@@ -16,9 +16,14 @@ module.exports = {
             throw e;
         }
 
+        var callback_to_hpe = function(err, resp, body) {
+            console.log("Got response from HPE. err = ", err, "resp = ", "*** ", "body = ", body);
+            callback(body);
+        }
+
         var client = new havenondemand.HODClient('0b913aab-b2a1-4b84-97ee-6317c28544ec', 'v1');
 
-        client.post('recognizespeech', {file: local_file_path}, true, function(err, resp, body) {
+        client.post('recognizespeech', {interval: 0, file: local_file_path}, true, function(err, resp, body) {
             console.log(body);
             var jobID = body.data.jobID;
 
@@ -34,7 +39,7 @@ module.exports = {
 
             loopUntilDone(jobID);
 
-            client.getJobResult(jobID, callback);
+            client.getJobResult(jobID, callback_to_hpe);
         });
     }
 }
