@@ -33,7 +33,7 @@ app.get('/upload-recording', function(req, res){
 app.get('/check_status', function(req, res){
     var task_id = req.query.task_id;
     console.log("Inside check_status for task_id = " + task_id);
-    task_status = db_gate.create_task_id();
+    task_status = db_gate.get_task_id(task_id);
     res.json(task_status);
 });
 

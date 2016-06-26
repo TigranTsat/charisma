@@ -4,7 +4,7 @@ module.exports = function() {
         var tigras_db = new function() {
             this.set_db_file_path = function(file_path) {
                 this.db_file_name = file_path;
-                
+
             }
             this.insert_val = function(namespace, val) {
                 var contents = fs.readFileSync(this.db_file_name , 'utf8');
@@ -65,7 +65,9 @@ module.exports = function() {
         }
         res = list_of_suited_tasks[0];
         if (res == undefined) {
-            console.err("Point 554: res is undefined");
+            console.error("Point 554: res is undefined");
+        } else {
+            // console.log("Point 543: res = ", res);
         }
         return res;
     }
