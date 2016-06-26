@@ -60,7 +60,10 @@ module.exports = {
 
             loopUntilDone(jobID);
 
-            client.getJobResult(jobID, callback);
+            client.getJobResult(jobID, function(err, resp, body) {
+                console.log(JSON.stringify(body));
+                console.log(body.actions[0].result.document[0].content);
+            });
 
             //getJobResult(jobID, callback);
         });
