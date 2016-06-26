@@ -5,6 +5,7 @@
     <script src="js/moment.min.js"></script>
 
     <script src="js/Chart.min.js"></script>
+    <script src="js/Chart.bundle.js"></script>
 
     <!-- Custom Theme files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
@@ -213,6 +214,41 @@
                         }
                     }
                 });
+
+                var ctx = document.getElementById("wordBasketAnalysis");
+
+
+                var wbadata = {
+                    labels: [
+                        "awesome",
+                        "sad",
+                        "amazing"
+                    ],
+                    datasets: [
+                        {
+                            data: [300, 50, 100],
+                            backgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ],
+                            hoverBackgroundColor: [
+                                "#FF6384",
+                                "#36A2EB",
+                                "#FFCE56"
+                            ]
+                        }]
+                };
+                var wordBasketAnalysis = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: wbadata,
+                    options: {
+                        cutoutPercentage: 20,
+                        animation: {
+                            animateRotate: true
+                        }
+                    }
+                });
             }
 
         });
@@ -277,6 +313,14 @@
                         <canvas id="wordsPerSecond" class="chart" width="400" height="400"></canvas>
                     </div>
                 </div>
+                <div class="col-xs-8 col-xs-offset-2">
+                    <div class="analysis-container">
+                        <h3>Word Basket Analysis</h3>
+                        <p>
+                        </p>
+                        <canvas id="wordBasketAnalysis" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
                 <div class="col-xs-12">
                     <div class="analysis-container">
                         <h3>Transcription</h3>
@@ -285,6 +329,7 @@
                         </p>
                     </div>
                 </div>
+
                 <div class="col-xs-12">
                     <div class="analysis-container">
                         <h3>Grammar</h3>
