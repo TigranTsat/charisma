@@ -29,6 +29,17 @@ module.exports = {
     }
     return seconds_stats;
   },
+
+  analyze_full_text: function (words_time) {
+    console.log("words_time:", words_time);
+    var list_of_words = words_time.actions[0].result.document;
+
+    var full_text = "";
+    for (var i = 0; i < list_of_words.length; i++) {
+        full_text += ' ' + list_of_words[i].content;
+    }
+    return full_text;
+  },
   /*
     return a list of numbers. len(return) = 20.
     each number correspond to a group of 5% from 0 till 100.
@@ -150,6 +161,4 @@ module.exports = {
 		}
 		return basket;
     }
-
-
 };
