@@ -3,13 +3,21 @@ module.exports = {
         return a list of numbers representing words said per second.
     */
   analyze_words: function (words_time) {
+    console.log("words_time:", words_time);
     var list_of_words = words_time.actions[0].result.document;
     if (list_of_words.length == 0) {
         console.warn("list_of_words.length == 0")
         return [];
     }
     var last_duration = list_of_words[list_of_words.length - 1].offset;
+    if (last_duration < 1000 || last_duration == NaN || last_duration == undefined ) {
+        console.warn("last_duration < 1000. ", list_of_words, 
+                     "last_duration = ", last_duration,
+                     "last word group", list_of_words[list_of_words.length - 1]);
+        throw { name: 'wrong data' }
+    }
     var total_sec = Math.ceil(last_duration / parseFloat(1000));
+    console.log("Creating array with total_sec = ", total_sec, "last_duration = ", last_duration);
     var seconds_stats = new Array(total_sec);
     for (var i = 0; i < seconds_stats.length; i++) {
         seconds_stats[i] = 0;
