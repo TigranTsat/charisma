@@ -11,6 +11,10 @@ var app = express();
 // require body-parser
 var bodyParser = require('body-parser');
 
+var BinaryServer = require('binaryjs').BinaryServer;
+var fs = require('fs');
+var wav = require('wav');
+
 app.use(bodyParser.urlencoded());
 
 // static content
@@ -43,3 +47,25 @@ var analyzers = require('./analyzers.js')
 app.listen(6789);
 // print to terminal window
 console.log("Running in localhost at port 6789");
+
+binaryServer = BinaryServer({port: 9001});
+
+binaryServer.on('connection', function(client) {
+  console.log('new connection');
+
+  var fileWriter = new wav.FileWriter(outFile, {
+    channels: 1,
+    sampleRate: 48000,
+    bitDepth: 16
+  });
+
+  client.on('stream', function(stream, meta) {
+    console.log('new stream');
+    stream.pipe(fileWriter);
+
+    stream.on('end', function() {
+      fileWriter.end();
+      console.log('wrote to file ' + outFile);
+    });
+  });
+});
