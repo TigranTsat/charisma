@@ -3,6 +3,7 @@ var http = require('http');
 // fs module allows us to read and write content for responses!!
 var fs = require('fs');
 // creating a server using http module:
+var analyzers = require('./analyzers.js')
 var server = http.createServer(function (request, response){
     // see what URL the clients are requesting:
     console.log('client request URL: ', request.url);
@@ -13,6 +14,10 @@ var server = http.createServer(function (request, response){
             response.write(contents);  //  send response body
             response.end(); // finished!
         });
+    } else if (request.url == '/upload-recording') {
+        // TODO
+    } else if (request.url == '/check_status?id=<id>') {
+        // TODO
     }
     // request didn't match anything:
     else {
