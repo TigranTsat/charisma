@@ -77,6 +77,22 @@
     });
     //]]>
 
+    execute_once_task_completed = function(task_id, callback) {
+        $.ajax({url: "check_status?task_id=" + task_id, success: function(result){
+            // console.log("result = ", result);
+            task_status = result.status;
+            console.log("Checked result status for task_id = " + task_id + ". Status = " + task_status);
+            if (task_status != "COMPLETED") {
+                setTimeout(function(){ 
+                    execute_once_task_completed(task_id, callback);
+                }, 1000)
+            } else {
+                console.log("Task " + task_id + " was completed.");
+                callback(task_id);
+            }
+        }});
+    }
+
     on_submit_click = function(event) {
         moment().format();
         var title = "TODO_title";
@@ -96,11 +112,20 @@
             type: 'POST',
             success: function(data){
                 console.log(data);
-            } //do something once submitted..
+                task_id = data.task;
+                execute_once_task_completed(task_id, function(task_id) {
+                    console.log("Task " + task_id + " is completed. Requesting data")
+                })
+            }
         })
         console.log("asds");
         return false;
     }
+
+    // Request all analysis present in the system
+    $.ajax({url: "all_analysis", success: function(result){
+        console.log("Current all_analysis length = " + result.length);
+    }});    
 
 
 
