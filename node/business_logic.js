@@ -12,7 +12,7 @@ module.exports = {
     */
   start_audio_processing: function (file_id, name) {
     console.log("Inside start_audio_processing for file_id = " + file_id);
-    on_hpe_recognizespeech = function(data) {
+    on_hpe_recognizespeech = function(err, resp, data) {
         console.log("on_hpe_recognizespeech. received data: ", data);
         analyze_report = {
             report_id: file_id,
@@ -28,11 +28,9 @@ module.exports = {
         // At the end
         db_gate.create_analyze_report(analyze_report);
         db_gate.update_task_status(file_id, "COMPLETED");
+
     }
     file_path = __dirname + '/files/' + file_id;
     hpe_http_gate.recognizespeech(file_path, on_hpe_recognizespeech);
-    // TODO: this is HACK!!!
-    word_times = data.get_words_time()
-    on_hpe_recognizespeech(word_times)
   }
 }
