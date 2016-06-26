@@ -80,15 +80,19 @@
             function draw_graphs(report) {
                 var report_name = report.name;
                 var total_score = report.total_score;
-                var clarity = report.analyzers.words_analyzer;
+                var clarity_list = report.analyzers.clarity_analyzer;
+                var labels = [];
+                for (var i = 0; i <= 100; i += 5) {
+                    labels.push(i + "%");
+                }
                 var ctx = document.getElementById("clarity");
                 var clarity = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        labels: labels,
                         datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
+                            // label: '# of Votes',
+                            data: clarity_list,
                             backgroundColor: [
                                 'rgba(255, 99, 132, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
