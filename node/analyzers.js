@@ -34,7 +34,10 @@ module.exports = {
         return [];
     }else{
     	// There are 20 baskets of 5% increments
-	    var confidence_counts = new Array(20).fill(0);
+	    var confidence_counts = new Array(20);
+        for (var i = 0; i < confidence_counts.length; i++) {
+            confidence_counts[i] = 0;
+        }
 	     for (var i = 0; i < list_of_words.length; i++) {
 	     	++confidence_counts[Math.floor(list_of_words[i].confidence/5)];
 	     }
@@ -53,8 +56,10 @@ module.exports = {
 	        console.warn("list_of_words.length == 0")
 	        return [];
 	    }else{
-	    	pronunciation_speed = new Array(list_of_words.length).fill(0);
-	    
+	    	pronunciation_speed = new Array(list_of_words.length);
+	        for (var i = 0; i < pronunciation_speed.length; i++) {
+                pronunciation_speed[i] = 0;
+            }
 	    	for (var i = 0; i < list_of_words.length; i++) {
 	    		pronunciation_speed[i] = list_of_words[i].duration/list_of_words[i].content.length;
 	    		
