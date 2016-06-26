@@ -17,6 +17,7 @@ module.exports = {
         analyze_report = {
             report_id: file_id,
             name: name,
+            total_score: 0,
             analyzers: {}
         };
         var res;

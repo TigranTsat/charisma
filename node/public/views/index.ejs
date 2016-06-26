@@ -120,6 +120,11 @@
         return false;
     }
 
+    // Request all analysis present in the system
+    $.ajax({url: "all_analysis", success: function(result){
+        console.log("Current all_analysis length = " + result.length);
+    }});    
+
 
 
     </script>
