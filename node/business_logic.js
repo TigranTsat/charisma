@@ -12,7 +12,7 @@ module.exports = {
     */
   start_audio_processing: function (file_id, name) {
     console.log("Inside start_audio_processing for file_id = " + file_id);
-    on_hpe_recognizespeech = function(err, resp, data) {
+    on_hpe_recognizespeech = function(data) {
         console.log("on_hpe_recognizespeech. received data: ", data);
         analyze_report = {
             report_id: file_id,
