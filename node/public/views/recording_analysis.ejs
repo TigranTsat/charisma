@@ -165,11 +165,18 @@
                     var percent = (count / total_words).toPrecision(2) * 10;
                     var risk_class = "low";
                     var risk_val = "Low";
+                    if (percent >= 0.6) {
+                        risk_class = "high";
+                        risk_val = "High";
+                    } else if (percent >= 0.1) {
+                        risk_class = "med";
+                        risk_val = "Medium";
+                    }
                     $("#tbody_occurences_in_words").append("<tr>" + 
                             "<th>" + word + "</td>" + 
                             "<td>" + count +"</td>" +
                               "<td>" + percent + "p. </td>" + 
-                              "<td class='high'>High</td>" +
+                              "<td class='" + risk_class + "'>" + risk_val + "</td>" +
                             "</tr>");
                 })
 
