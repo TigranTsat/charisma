@@ -10,5 +10,10 @@ module.exports = {
     */
   start_audio_processing: function (file_id) {
     console.log("Inside start_audio_processing for file_id = " + file_id);
+    on_hpe_recognizespeech = function(data) {
+        console.log("on_hpe_recognizespeech. received data: ", data);
+    }
+    file_path = __dirname + '/files/' + file_id;
+    hpe_http_gate.recognizespeech(file_path, on_hpe_recognizespeech);
   }
 }
