@@ -138,7 +138,7 @@
                 // ============================================
                 var transcript = report.analyzers.full_text_analyzer;
                 $("#transcription_section").text(transcript);
-                
+
                 // ============================================
                 var ctx = document.getElementById("wordsPerSecond");
 
@@ -186,22 +186,25 @@
 
                 var wbadata = {
                     labels: [
-                        "awesome",
-                        "sad",
-                        "amazing"
+                        "bad words",
+                        "buzz words",
+                        "desirable",
+                        "neutral"
                     ],
                     datasets: [
                         {
-                            data: [300, 50, 100],
+                            data: [300, 50, 100, 23],
                             backgroundColor: [
                                 "#FF6384",
                                 "#36A2EB",
-                                "#FFCE56"
+                                "#FFCE56",
+                                "#605293"
                             ],
                             hoverBackgroundColor: [
                                 "#FF6384",
                                 "#36A2EB",
-                                "#FFCE56"
+                                "#FFCE56",
+                                "#605293"
                             ]
                         }]
                 };
@@ -209,7 +212,7 @@
                     type: 'doughnut',
                     data: wbadata,
                     options: {
-                        cutoutPercentage: 20,
+                        cutoutPercentage: 40,
                         animation: {
                             animateRotate: true
                         }
