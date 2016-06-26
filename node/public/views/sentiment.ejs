@@ -5,42 +5,107 @@
 	<title>Sentiment</title>
   <script src="../js/Chart.min.js"></script>
 	<style>
-	html { overflow: hidden; }
-	body {
-		font: 14pt Arial, sans-serif;
-		background: white;
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-		width: 100%;
-		margin: 0 0;
-	}
-	canvas {
-		display: inline-block;
-		background: #202020;
-		width: 95%;
-		height: 45%;
-		box-shadow: 0px 0px 10px blue;
-	}
-	</style>
+</style>
 </head>
 <body>
 
-  <canvas id="myChart" width="400" height="400"></canvas>
-  <script>
-var ctx = document.getElementById("myChart");
+<div id="container" style="width: 75%">
+  <canvas id="myChart"></canvas>
+</div>
 
+<script>
+var phrases = {
+  "positive": [
+    {
+      "sentiment": "amazing experience of going to hack",
+      "topic": "the experience",
+      "score": 0.7352054609465631,
+      "original_text": "the experience amazing experience of going to hack this",
+      "original_length": 55,
+      "normalized_text": "the experience amazing experience of going to hack this",
+      "normalized_length": 55
+    },
+    {
+      "sentiment": "is an amazing experience",
+      "topic": null,
+      "score": 0.859327910498872,
+      "original_text": "is an amazing experience",
+      "original_length": 24,
+      "normalized_text": "is an amazing experience",
+      "normalized_length": 24
+    },
+    {
+      "sentiment": "interesting",
+      "topic": "people",
+      "score": 0.6280145725181376,
+      "original_text": "interesting people",
+      "original_length": 18,
+      "normalized_text": "interesting people",
+      "normalized_length": 18
+    },
+    {
+      "sentiment": "create innovative ideas and solutions to problems",
+      "topic": null,
+      "score": 0.7923352042939829,
+      "original_text": "create innovative ideas and solutions to problems",
+      "original_length": 49,
+      "normalized_text": "create innovative ideas and solutions to problems",
+      "normalized_length": 49
+    },
+    {
+      "sentiment": "a great",
+      "topic": null,
+      "score": 0.9025871577819432,
+      "original_text": "it is a great",
+      "original_length": 13,
+      "normalized_text": "it is a great",
+      "normalized_length": 13
+    },
+    {
+      "sentiment": "encourage",
+      "topic": null,
+      "score": 0.8303585105859703,
+      "original_text": "encourage everyone to work",
+      "original_length": 26,
+      "normalized_text": "encourage everyone to work",
+      "normalized_length": 26
+    },
+    {
+      "sentiment": "thank",
+      "topic": null,
+      "score": 0.6748984055823062,
+      "original_text": "this thank you",
+      "original_length": 14,
+      "normalized_text": "this thank you",
+      "normalized_length": 14
+    }
+  ],
+  "negative": [],
+  "aggregate": {
+    "sentiment": "positive",
+    "score": 0.7746753174582537
+  }
+}
+
+var labels = [], data = [];
+
+for (var i = 0; i < phrases.positive.length; i++) {
+	labels.push(phrases.positive[i].original_text);
+	data.push(phrases.positive[i].score * 100);
+}
+
+var ctx = document.getElementById("myChart");
 var data = {
-    labels: ["the great thing about this", "interesting people so great", "March", "April", "May", "June", "July"],
+    labels: labels,
     datasets: [
         {
-            label: "My First dataset",
+            label: "Positive Phrases",
             backgroundColor: "rgba(255,99,132,0.2)",
             borderColor: "rgba(255,99,132,1)",
             borderWidth: 1,
             hoverBackgroundColor: "rgba(255,99,132,0.4)",
             hoverBorderColor: "rgba(255,99,132,1)",
-            data: [65, 70, 80, 81, 56, 55, 40],
+            data: data,
         }
     ]
 };
@@ -58,6 +123,7 @@ var myBarChart = new Chart(ctx, {
         }
     }
 });
+
 </script>
 </body>
 </html>
