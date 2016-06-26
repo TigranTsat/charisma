@@ -21,7 +21,21 @@ module.exports = {
     }
     return seconds_stats;
   },
-  bar: function () {
+  /*
+    return a list of numbers. len(return) = 20.
+    each number correspond to a group of 5% from 0 till 100.
+    value means number of confidences per each group.
+  */
+  analyze_clarity: function (words_time) {
     // whatever
+  },
+  /*
+    returns list of numbers. len(return) = 20.
+    each number correspond to a group of 5% from 0 till 100.
+    value mean - number of word prononciation speeds per group.
+    word prononciation spead = word duration / number of characters
+  */
+  analyze_word_durations: function(words_time) {
+
   }
 };
