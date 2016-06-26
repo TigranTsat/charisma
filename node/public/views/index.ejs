@@ -78,13 +78,15 @@
     //]]>
 
     on_submit_click = function(event) {
+        moment().format();
         var title = "TODO_title";
         var file_id = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
         var formData = new FormData();
         var files = $('input[type=file]')[0];
         console.log("files: ", files);
-        formData.append('fileUpload', $('input[type=file]')[0].files[0]); 
+        formData.append('fileUpload', $('input[type=file]')[0].files[0]);
         console.log(formData);
+        $('input[name=title]').val(moment())
         $.ajax({
             url: 'upload_file?file_id=' + file_id + '&title='+title,
             data: formData,
@@ -112,6 +114,7 @@
             <div class="login">
     			<h2 style="text-align: center; margin-bottom: 20px;">UPLOAD AUDIO</h2>
                 <form id="fileUpload" method='post' action='upload_file?file_id=1234' enctype=multipart/form-data>
+                    <input type="hidden" name="title" value="moment()"/>
                     <input type='file' name='fileUploaded'>
                     <div class="send">
                         <input id="upload_file_button" style="margin-left: 0px;" type='submit' value="Upload" onclick="on_submit_click(this); return false;">
