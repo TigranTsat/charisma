@@ -12,8 +12,34 @@ html, body{
    font-size: 100%;
    background:#eeeeee;
 }
+.container.recording-analysis{
+    background: #FFF;
+}
 a {
   text-decoration: none;
+}
+p{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+th{
+    font-family: 'SignikaNegative-Regular';
+    font-weight: bold;
+}
+td.high{
+    color: #D22517;
+    font-family: 'SignikaNegative-Regular';
+    font-weight: bold;
+}
+td.med{
+    color: #D4AC0D;
+    font-family: 'SignikaNegative-Regular';
+    font-weight: bold;
+}
+td.low{
+    color: #00730E;
+    font-family: 'SignikaNegative-Regular';
+    font-weight: bold;
 }
 a:hover {
   transition: 0.5s all;
@@ -588,7 +614,9 @@ li.nbs-flexisel-item p {
 /*--weather end here--*/
 /*--login start here--*/
 .analysis-container{
+    margin-top: 20px;
     background: #fff;
+    padding: 20px 30px 30px 30px;
 }
 .login, .recording-table {
   background: #fff;

@@ -3,6 +3,9 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="js/jquery-1.11.0.min.js"></script>
     <script src="js/moment.min.js"></script>
+
+    <script src="js/Chart.min.js"></script>
+
     <!-- Custom Theme files -->
     <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
 
@@ -45,7 +48,9 @@
         		});
         	});
 
+            //to get id and title of recording later...
             getUrlParams = function(){
+
                 var params = {};
 
                 if (location.search) {
@@ -59,18 +64,194 @@
                 }
 
                 // Now you can get the parameters you want like so:
-                var abc = params.abc;
+                console.log(params);
                 return params;
+            }
+            url_params = getUrlParams(function(){
+                $('#recording-title').text(url_params);
+            });
+
+            var report_id = url_params.report_id;
+            if (report_id == undefined || report_id == "") {
+                console.log("Wrong report_id");
+            } else {
+                console.log("Using report_id = " + report_id);
+            }
+            $.ajax({url: "get_analysis?task_id=" + report_id , success: function(result){
+                console.log("get_analysis success");
+                draw_graphs(result);
+            }});
+
+
+            function draw_graphs(report) {
+                Chart.defaults.global.legend.display = false;
+                var report_name = report.name;
+                var total_score = report.total_score;
+                $("#report_name").text("Speech report for " + report_name);
+                var clarity_list = report.analyzers.clarity_analyzer;
+                var labels = [];
+                for (var i = 0; i <= 100; i += 5) {
+                    labels.push(i + "%");
+                }
+                var ctx = document.getElementById("clarity");
+                var clarity = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+
+                            label: 'confidence',
+                            data: clarity_list,
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
+
+                var ctx = document.getElementById("wordsPerSecond");
+
+                var wordsPerSecond = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+                        datasets: [{
+                            label: 'words',
+                            data: [3, 10, 3, 5, 2, 3],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255,99,132,1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                });
             }
 
         });
     </script>
     <body>
-        <div class="container">
+        <div class="container recording-analysis">
+
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
+                <div class="col-xs-12">
                     <div class="analysis-container">
-                        Hello
+                        <h3 id="report_name"></h3>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="col-xs-10 col-xs-offset-1">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Word</th>
+                              <th># Occurences</th>
+                              <th>Frequency Index</th>
+                              <th>Risk</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th>crappy</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="high">High</td>
+                            </tr>
+                            <tr>
+                              <th>awesome</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="med">Medium</td>
+                            </tr>
+                            <tr>
+                              <th>nice</td>
+                              <td>153</td>
+                              <td>45%</td>
+                              <td class="low">Low</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Clarity of Speech</h3>
+                        <p>
+                            This is how clearly the machine heard each word said.
+                        </p>
+                        <canvas id="clarity" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Words Per Second</h3>
+                        <p>
+                        </p>
+                        <canvas id="wordsPerSecond" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Transcription</h3>
+                        <p>
+                            To Be Developed...
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Grammar</h3>
+                        <p>
+                            To Be Developed...
+                        </p>
                     </div>
                 </div>
             </div>

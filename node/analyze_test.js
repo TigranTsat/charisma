@@ -12,4 +12,11 @@ console.log(clarity)
 var word_duration = analyzers.analyze_word_durations(word_times)
 console.log(word_duration)
 
-console.log("ANALYZERS TESTED");
+var word_distribution = analyzers.analyze_word_distribution(word_times)
+console.log(word_distribution)
+
+var full_text = analyzers.analyze_full_text(word_times)
+console.log(full_text)
+
+var word_basket = analyzers.analyze_words_baskets(word_times)
+console.log(word_basket)
