@@ -86,7 +86,7 @@ module.exports = function() {
             // console.log("Point 543: res = ", res);
         }
         return res;
-    }
+    },
     this.update_task_status = function(task_id, task_status) {
         console.log("Inside 'update_task_status' with id = " + task_id);
         updated_value = global.db.update_value("tasks", function (entry) {
@@ -100,11 +100,17 @@ module.exports = function() {
             throw { name: mgs }
         }
         return updated_value;
-    }
+    },
     this.generate_rand_id = function () {
         rand_val = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
         return rand_val;
+    },
+    this.create_analyze_report = function(report) {
+        console.log("Inside 'create_analyze_report' with id = " + report.report_id);
+        global.db.insert_val("reports", report);
+        return report;
     }
+
     return this;
 
     

@@ -13,15 +13,19 @@ module.exports = {
     console.log("Inside start_audio_processing for file_id = " + file_id);
     on_hpe_recognizespeech = function(data) {
         console.log("on_hpe_recognizespeech. received data: ", data);
-        analyze_container = {
-            id: file_id,
+        analyze_report = {
+            report_id: file_id,
             name: name,
             analyzers: {}
         };
         var res;
         res = analyzers.analyze_words(data);
-        analyze_container.analyzers["words_analyzer"] = res;
+        analyze_report.analyzers["words_analyzer"] = res;
         // TODO: add status with more analyzers
+
+        // At the end
+        db_gate.create_analyze_report(analyze_report);
+        db_gate.update_task_status(file_id, "COMPLETED");
     }
     file_path = __dirname + '/files/' + file_id;
     hpe_http_gate.recognizespeech(file_path, on_hpe_recognizespeech);
