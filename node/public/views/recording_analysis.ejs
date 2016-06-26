@@ -223,18 +223,22 @@
                 });
 
                 var ctx = document.getElementById("wordBasketAnalysis");
+                var wordBasketAnalysis_data = report.analyzers.words_baskets_analyzer;
 
 
                 var wbadata = {
                     labels: [
-                        "bad words",
-                        "buzz words",
-                        "desirable",
-                        "neutral"
+                        "Bad words",
+                        "Buzz words",
+                        "Not desitable",
+                        "Neutral"
                     ],
                     datasets: [
                         {
-                            data: [300, 50, 100, 23],
+                            data: [wordBasketAnalysis_data.bad_words, 
+                                wordBasketAnalysis_data.buzzwords, 
+                                wordBasketAnalysis_data.not_desireble,
+                                wordBasketAnalysis_data.neutral],
                             backgroundColor: [
                                 "#FF6384",
                                 "#36A2EB",
