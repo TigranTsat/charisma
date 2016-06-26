@@ -61,5 +61,19 @@ module.exports = {
 	    	}
 	    	return pronunciation_speed;
 	    }
-	}
+	},
+    /*
+        cluster words to buskets
+    */
+    analyze_words_buskets: function(words_time) {
+        // It will make sense to run that on top of text
+        // http://www.genardmethod.com/blog/bid/184287/25-Words-or-Phrases-to-Avoid-in-Speeches-and-Presentations
+        // TODO: add more words
+        var bad_words = ["fuck", "shit"];
+        var busswords = [];
+        var not_desirible = ["weakness", "my topic is", "sorry for", "the next slide shows"];
+        var other_words = [];
+        // TODO:
+    }
+
 };
