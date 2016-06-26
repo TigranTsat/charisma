@@ -95,7 +95,7 @@
 
     on_submit_click = function(event) {
         moment().format();
-        var title = "TODO_title";
+        var title = moment();
         var file_id = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
         var formData = new FormData();
         var files = $('input[type=file]')[0];
