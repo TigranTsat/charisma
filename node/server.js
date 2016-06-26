@@ -1,31 +1,42 @@
-// get the http module:
-var http = require('http');
-// fs module allows us to read and write content for responses!!
-var fs = require('fs');
+
+// require express
+var express = require("express");
+
+//path module
+var path = require("path");
+
+// create the express app
+var app = express();
+
+// require body-parser
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded());
+
+// static content
+app.use(express.static(path.join(__dirname, './views')));
+
+// setting up ejs and our views folder
+app.set('views', path.join(__dirname, './views'));
+app.set('view engine', 'ejs');
+
+// root route to render the index.ejs view
+app.get('/', function(req, res){
+  res.render("index");
+});
+
+app.get('/upload-recording', function(req, res){
+  res.render("upload-recording");
+});
+
+app.get('/check_status?id=<id>', function(req, res){
+  res.render("/check_status?id=<id>");
+});
+
 // creating a server using http module:
 var analyzers = require('./analyzers.js')
-var server = http.createServer(function (request, response){
-    // see what URL the clients are requesting:
-    console.log('client request URL: ', request.url);
-    // this is how we do routing:
-    if(request.url === '/') {
-        fs.readFile('index.html', 'utf8', function (errors, contents){
-            response.writeHead(200, {'Content-Type': 'text/html'});  // send data about response
-            response.write(contents);  //  send response body
-            response.end(); // finished!
-        });
-    } else if (request.url == '/upload-recording') {
-        // TODO
-    } else if (request.url == '/check_status?id=<id>') {
-        // TODO
-    }
-    // request didn't match anything:
-    else {
-        response.writeHead(404);
-        response.end('File not found!!!');
-    }
-});
+
 // tell your server which port to run on
-server.listen(6789);
+app.listen(6789);
 // print to terminal window
 console.log("Running in localhost at port 6789");
