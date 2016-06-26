@@ -50,6 +50,9 @@ app.get('/get_analysis', function(req, res){
     res.json({todo:"TODO"});
 });
 
+app.get('/sentiment', function(req, res){
+  res.render("sentiment");
+});
 
 app.listen(6789);
 console.log("Running in localhost at port 6789");
