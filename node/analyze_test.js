@@ -12,3 +12,6 @@ console.log(clarity)
 
 var word_duration = analyzers.analyze_word_durations(word_times)
 console.log(word_duration)
+
+var word_distribution = analyzers.analyze_word_distribution(word_times)
+console.log(word_distribution)

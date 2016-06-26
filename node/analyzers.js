@@ -61,5 +61,33 @@ module.exports = {
 	    	}
 	    	return pronunciation_speed;
 	    }
+	},
+
+	/*
+	Returns an object list of words with their counts to show the distribution of words
+	*/
+
+	analyze_word_distribution: function(words_time) {
+		var list_of_words = words_time.actions[0].result.document;
+
+		if (list_of_words.length == 0) {
+	        console.warn("list_of_words.length == 0")
+	        return [];
+	    } else {
+	    	var arr = new Object();
+	    	var banned = ["and", "the", "a", "this", "is", "that","you",];
+			for (var i = 0; i < list_of_words.length; i++) {
+				// If word in arr increment
+				// Else add word and set count to 1
+				word = list_of_words[i].content;
+				if (list_of_words[i].content in arr) {
+					arr[word] += 1;
+				} else if (banned.indexOf(word) == -1) {
+					arr[word] = 1;
+				}
+			}			
+		    return arr;
+	    }
 	}
+	
 };
