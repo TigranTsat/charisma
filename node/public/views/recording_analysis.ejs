@@ -74,9 +74,10 @@
             }
             $.ajax({url: "get_analysis?task_id=" + report_id , success: function(result){
                 console.log("get_analysis success");
-                // TODO: render graphs
+                draw_graphs(result);
             }});
 
+            function draw_graphs(data) {
                 var ctx = document.getElementById("clarity");
                 var clarity = new Chart(ctx, {
                     type: 'bar',
@@ -155,6 +156,7 @@
                         }
                     }
                 });
+            }
 
         });
     </script>
