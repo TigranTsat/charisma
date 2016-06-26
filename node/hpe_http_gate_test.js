@@ -9,5 +9,7 @@ if (task.status != 'IN_PROGRESS') {
 }
 
 // TODO: place with real wav file
-hpe_http_gate.recognizespeech('simple_audio1.m4a', function() {
+var jobID = 0;
+hpe_http_gate.recognizespeech('simple_audio1.m4a', function(err, resp, body) {
+		console.log(resp.body);
 })
