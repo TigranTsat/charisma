@@ -27,6 +27,8 @@ module.exports = {
         analyze_report.analyzers["clarity_analyzer"] = res;
         res = analyzers.analyze_word_durations(data);
         analyze_report.analyzers["word_duration_analyzer"] = res;
+        res = analyzers.analyze_word_distribution(data);
+        analyze_report.analyzers["word_distribution_analyzer"] = res;
         console.log("=========    REPORT FINISHED WITH ID =  " + file_id + " =========");
         // TODO: add status with more analyzers
 

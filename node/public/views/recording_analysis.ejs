@@ -134,6 +134,16 @@
                     }
                 });
 
+                //
+                var word_distribution_list = report.analyzers.word_distribution_analyzer;
+                var top_10_common_words = word_distribution_list.slice(0, 10);
+                // TODO: need to show that as table
+                // [ [ 'experience', 4 ],
+                //   [ 'everyone', 2 ],
+                //   [ 'amazing', 2 ],
+
+                // 
+
                 var ctx = document.getElementById("wordsPerSecond");
 
                 var wordsPerSecond = new Chart(ctx, {
