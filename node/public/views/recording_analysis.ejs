@@ -63,8 +63,14 @@
                 }
 
                 // Now you can get the parameters you want like so:
-                var abc = params.abc;
                 return params;
+            }
+            url_params = getUrlParams();
+            var report_id = url_params.report_id;
+            if (report_id == undefined || report_id == "") {
+                console.log("Wrong report_id");
+            } else {
+                console.log("Using report_id = " + report_id);
             }
 
                 var ctx = document.getElementById("clarity");
