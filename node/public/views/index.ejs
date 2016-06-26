@@ -100,7 +100,6 @@
         var files = $('input[type=file]')[0];
         console.log("files: ", files);
         formData.append('fileUpload', $('input[type=file]')[0].files[0]); 
-
         console.log(formData);
         $.ajax({
             url: 'upload_file?file_id=' + file_id + '&title='+title,
@@ -138,11 +137,99 @@
                         <input id="upload_file_button" style="margin-left: 0px;" type='submit' value="Upload" onclick="on_submit_click(this); return false;">
                     </div>
                 </form>
-
-    			  <div class="clearfix"> </div>
+    			<div class="clearfix"> </div>
     		 </div>
         </div>
+        <div class="col-xs-6 col-xs-offset-3">
+            <div class="recording-table">
+                <h4>PAST RECORDINGS</h4>
+                <ul class="table">
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                    <a href="recording_data/<recording_id>">
+                        <li>
+                            Title
+                            <span class="score">45</span>
+                        </li>
+                    </a>
+                </ul>
+            </div>
+
+        </div>
+
+
     </div>
+
 
 
 
