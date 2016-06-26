@@ -5,7 +5,12 @@ var rand_task_id = db_gate.generate_rand_id();
 db_gate.create_task_id(rand_task_id);
 task = db_gate.get_task_id(rand_task_id);
 if (task.status != 'IN_PROGRESS') {
-    throw new Exception();
+    throw {name: "failure 8893"};
+}
+db_gate.update_task_status(rand_task_id, 'MY_NEW_TASK_STATUS');
+task = db_gate.get_task_id(rand_task_id);
+if (task.status != 'MY_NEW_TASK_STATUS') {
+    throw {name: "failure 8899"};
 }
 
 // TODO: place with real wav file

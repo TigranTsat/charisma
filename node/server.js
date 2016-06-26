@@ -2,16 +2,13 @@
 // require express
 var express = require("express");
 var db_gate = require("./db_gate")();
+var analyzers = require('./analyzers.js')
 
 //path module
 var path = require("path");
 
-// create the express app
 var app = express();
-
-// require body-parser
 var bodyParser = require('body-parser');
-
 app.use(bodyParser.urlencoded());
 
 // static content
@@ -45,11 +42,14 @@ app.get('/create_task', function(req, res){
     res.json(task_status);
 });
 
+// Returns audio analysis for file with task_id = xxxxxx
+app.get('/get_analysis', function(req, res){
+    var task_id = req.query.task_id;
+    console.log("Inside get_analysis for task_id = " + task_id);
+    // TODO: query db for report
+    res.json({todo:"TODO"});
+});
 
-// creating a server using http module:
-var analyzers = require('./analyzers.js')
 
-// tell your server which port to run on
 app.listen(6789);
-// print to terminal window
 console.log("Running in localhost at port 6789");

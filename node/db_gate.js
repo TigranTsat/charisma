@@ -31,6 +31,22 @@ module.exports = function() {
                 }) 
                 return res;
             }
+            this.update_value = function(namespace, callback) {
+                var contents = fs.readFileSync(this.db_file_name , 'utf8');
+                var json_context = JSON.parse(contents)
+                rows = json_context[namespace];
+                for (var i = 0; i < rows.length; i++) {
+                    callback_res = callback(rows[i]);
+                    if (callback_res != undefined) {
+                        // value changed
+                        rows[i] = callback_res;
+                        var new_context = JSON.stringify(json_context);
+                        fs.writeFileSync(this.db_file_name , new_context);
+                        return callback_res;
+                    }
+                }
+                return [];
+            }
         }
         tigras_db.set_db_file_path('./tigras_db.json');
         global.db = tigras_db;
@@ -70,6 +86,20 @@ module.exports = function() {
             // console.log("Point 543: res = ", res);
         }
         return res;
+    }
+    this.update_task_status = function(task_id, task_status) {
+        console.log("Inside 'update_task_status' with id = " + task_id);
+        updated_value = global.db.update_value("tasks", function (entry) {
+            if (entry.task == task_id) {
+                return {task: task_id, status: task_status}
+            }
+        });
+        if (updated_value == undefined) {
+            mgs = "Failure to update task.";
+            console.error(mgs);
+            throw { name: mgs }
+        }
+        return updated_value;
     }
     this.generate_rand_id = function () {
         rand_val = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
