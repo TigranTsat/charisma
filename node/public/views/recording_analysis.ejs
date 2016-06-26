@@ -134,6 +134,11 @@
                     }
                 });
 
+                // ============================================
+                var transcript = report.analyzers.full_text_analyzer;
+                $("#transcription_section").text(transcript);
+                
+                // ============================================
                 var ctx = document.getElementById("wordsPerSecond");
 
                 var wordsPerSecond = new Chart(ctx, {
@@ -241,7 +246,7 @@
                 <div class="col-xs-12">
                     <div class="analysis-container">
                         <h3>Transcription</h3>
-                        <p>
+                        <p id="transcription_section">
                             To Be Developed...
                         </p>
                     </div>

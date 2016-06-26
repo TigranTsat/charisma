@@ -23,14 +23,22 @@ module.exports = {
         var res;
         res = analyzers.analyze_words(data);
         analyze_report.analyzers["words_analyzer"] = res;
+
         res = analyzers.analyze_clarity(data);
         analyze_report.analyzers["clarity_analyzer"] = res;
+
         res = analyzers.analyze_word_durations(data);
         analyze_report.analyzers["word_duration_analyzer"] = res;
+
         res = analyzers.analyze_word_distribution(data);
         analyze_report.analyzers["word_distribution_analyzer"] = res;
+
         res = analyzers.analyze_full_text(data);
         analyze_report.analyzers["full_text_analyzer"] = res;
+
+        res = analyzers.analyze_words_baskets(data);
+        analyze_report.analyzers["words_baskets_analyzer"] = res;
+        
         console.log("=========    REPORT FINISHED WITH ID =  " + file_id + " =========");
         // TODO: add status with more analyzers
 
