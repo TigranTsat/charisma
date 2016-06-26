@@ -99,8 +99,21 @@ module.exports = {
 				} else if (banned.indexOf(word) == -1) {
 					arr[word] = 1;
 				}
-			}		
-		    return arr;
+			}
+            // Create items array
+            var items = Object.keys(arr).map(function(key) {
+                return [key, arr[key]];
+            });
+
+            // Sort the array based on the second element
+            items.sort(function(first, second) {
+                return second[1] - first[1];
+            });
+            // console.log(">>items", items);
+            // >>items [ [ 'experience', 4 ],
+            //   [ 'everyone', 2 ],
+            //   [ 'amazing', 2 ],
+		    return items;
 	    }
 	}
 	
