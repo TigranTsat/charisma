@@ -14,10 +14,10 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded());
 
 // static content
-app.use(express.static(path.join(__dirname, './views')));
+app.use(express.static(path.join(__dirname, './public')));
 
 // setting up ejs and our views folder
-app.set('views', path.join(__dirname, './views'));
+app.set('views', path.join(__dirname, './public/views'));
 app.set('view engine', 'ejs');
 
 // root route to render the index.ejs view
@@ -32,6 +32,7 @@ app.get('/upload-recording', function(req, res){
 app.get('/check_status?id=<id>', function(req, res){
   res.render("/check_status?id=<id>");
 });
+
 
 // creating a server using http module:
 var analyzers = require('./analyzers.js')
