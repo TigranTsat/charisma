@@ -15,3 +15,5 @@ console.log(word_duration)
 var word_distribution = analyzers.analyze_word_distribution(word_times)
 console.log(word_distribution)
 
+var full_text = analyzers.analyze_full_text(word_times)
+console.log(full_text)
