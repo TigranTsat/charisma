@@ -123,6 +123,22 @@
     // Request all analysis present in the system
     $.ajax({url: "all_analysis", success: function(result){
         console.log("Current all_analysis length = " + result.length);
+        // +======== SECTION LOOKS LIKE
+        // <a href="recording_data/<recording_id>">
+        //     <li>
+        //         Title
+        //         <span class="score">45</span>
+        //     </li>
+        // </a>
+        $('#past_recordings_table').html("");
+        result.forEach(function(data) {
+            $('#past_recordings_table').append('<a href="recording_data/<recording_id>">' + 
+                                               '<li>' + 
+                                               data.name +
+                                               '<span class="score">' + data.total_score + '</span>' +
+                                               '</li>' +
+                                               '</a>')
+        });
     }});    
 
 
@@ -148,7 +164,7 @@
         <div class="col-xs-6 col-xs-offset-3">
             <div class="recording-table">
                 <h4>PAST RECORDINGS</h4>
-                <ul class="table">
+                <ul class="table" id="past_recordings_table">
                     <a href="recording_data/<recording_id>">
                         <li>
                             Title
