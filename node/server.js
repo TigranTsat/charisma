@@ -16,6 +16,7 @@ var server = http.createServer(function (request, response){
         });
     } else if (request.url == '/upload-recording') {
         // TODO
+        // returs ID
     } else if (request.url == '/check_status?id=<id>') {
         // TODO
     }
