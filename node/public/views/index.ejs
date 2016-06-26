@@ -77,17 +77,29 @@
     });
     //]]>
 
-    $('#fileUpload').submit(function (e) {
-        e.preventDefault();
+    on_submit_click = function(event) {
+        var title = "TODO_title";
+        var file_id = Math.round(Math.random() * 1000 * 1000 * 1000).toString();
+        var formData = new FormData();
+        var files = $('input[type=file]')[0];
+        console.log("files: ", files);
+        formData.append('fileUpload', $('input[type=file]')[0].files[0]); 
 
-        
+        console.log(formData);
         $.ajax({
+            url: 'upload_file?file_id=' + file_id + '&title='+title,
+            data: formData,
+            // THIS MUST BE DONE FOR FILE UPLOADING
+            contentType: false,
+            processData: false,
             type: 'POST',
-            url: 'upload_file?file_id=1234',
-            data: $(this).serialize(),
-            success: function(){} //do something once submitted..
-        });
-    });
+            success: function(data){
+                console.log(data);
+            } //do something once submitted..
+        })
+        console.log("asds");
+        return false;
+    }
 
 
 
@@ -103,7 +115,7 @@
                 <form id="fileUpload" method='post' action='upload_file?file_id=1234' enctype=multipart/form-data>
                     <input type='file' name='fileUploaded'>
                     <div class="send">
-                        <input style="margin-left: 0px;" type='submit' value="Upload" >
+                        <input id="upload_file_button" style="margin-left: 0px;" type='submit' value="Upload" onclick="on_submit_click(this); return false;">
                     </div>
                 </form>
 
