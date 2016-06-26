@@ -2,16 +2,16 @@
 // require express
 var express = require("express");
 var db_gate = require("./db_gate")();
+var analyzers = require('./analyzers.js');
+var business_logic = require('./business_logic.js')
 
-//path module
+var busboy = require('connect-busboy'); //middleware for form/file upload
+var fs = require('fs-extra');       //File System - for file manipulation
 var path = require("path");
 
-// create the express app
 var app = express();
-
-// require body-parser
 var bodyParser = require('body-parser');
-
+app.use(busboy());
 app.use(bodyParser.urlencoded());
 
 // static content
@@ -45,11 +45,33 @@ app.get('/create_task', function(req, res){
     res.json(task_status);
 });
 
+// Returns audio analysis for file with task_id = xxxxxx
+app.get('/get_analysis', function(req, res){
+    var task_id = req.query.task_id;
+    console.log("Inside get_analysis for task_id = " + task_id);
+    var report = db_gate.get_analyze_report(task_id);
+    res.json(report);
+});
+app.route('/upload_file')
+    .post(function (req, res, next) {
 
-// creating a server using http module:
-var analyzers = require('./analyzers.js')
+        var fstream;
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            var file_id = req.query.file_id;
+            console.log("Uploading: " + filename + " id = " + file_id);
+            fstream = fs.createWriteStream(__dirname + '/files/' + file_id);
+            file.pipe(fstream);
+            console.log("Created pipe")
+            fstream.on('close', function () {    
+                console.log("Upload Finished of " + filename);    
+                task_status = db_gate.create_task_id(file_id);
+                // TODO: use date or timestamp instead of filename
+                business_logic.start_audio_processing(file_id, filename);
+                res.json(task_status);
+            });
+        });
+    });
 
-// tell your server which port to run on
 app.listen(6789);
-// print to terminal window
 console.log("Running in localhost at port 6789");
