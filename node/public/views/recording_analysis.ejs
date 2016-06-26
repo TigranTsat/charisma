@@ -77,7 +77,10 @@
                 draw_graphs(result);
             }});
 
-            function draw_graphs(data) {
+            function draw_graphs(report) {
+                var report_name = report.name;
+                var total_score = report.total_score;
+                var clarity = report.analyzers.words_analyzer;
                 var ctx = document.getElementById("clarity");
                 var clarity = new Chart(ctx, {
                     type: 'bar',
