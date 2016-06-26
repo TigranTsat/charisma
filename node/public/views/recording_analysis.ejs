@@ -134,16 +134,6 @@
                     }
                 });
 
-                //
-                var word_distribution_list = report.analyzers.word_distribution_analyzer;
-                var top_10_common_words = word_distribution_list.slice(0, 10);
-                // TODO: need to show that as table
-                // [ [ 'experience', 4 ],
-                //   [ 'everyone', 2 ],
-                //   [ 'amazing', 2 ],
-
-                // 
-
                 var ctx = document.getElementById("wordsPerSecond");
 
                 var wordsPerSecond = new Chart(ctx, {
@@ -246,6 +236,22 @@
                         <p>
                         </p>
                         <canvas id="wordsPerSecond" class="chart" width="400" height="400"></canvas>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Transcription</h3>
+                        <p>
+                            To Be Developed...
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12">
+                    <div class="analysis-container">
+                        <h3>Grammar</h3>
+                        <p>
+                            To Be Developed...
+                        </p>
                     </div>
                 </div>
             </div>
