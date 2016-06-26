@@ -64,7 +64,8 @@ app.route('/upload_file')
             console.log("Created pipe")
             fstream.on('close', function () {    
                 console.log("Upload Finished of " + filename);              
-                res.redirect('back');           //where to go next
+                task_status = db_gate.create_task_id(file_id);
+                res.json(task_status);
             });
         });
     });
