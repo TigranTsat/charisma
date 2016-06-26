@@ -588,7 +588,9 @@ li.nbs-flexisel-item p {
 /*--weather end here--*/
 /*--login start here--*/
 .analysis-container{
+    margin-top: 20px;
     background: #fff;
+    padding: 20px 30px 30px 30px;
 }
 .login, .recording-table {
   background: #fff;

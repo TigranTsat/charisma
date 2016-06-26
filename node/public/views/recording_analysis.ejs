@@ -67,8 +67,8 @@
                 return params;
             }
 
-                var ctx = document.getElementById("myChart");
-                var myChart = new Chart(ctx, {
+                var ctx = document.getElementById("clarity");
+                var clarity = new Chart(ctx, {
                     type: 'bar',
                     data: {
                         labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
@@ -110,9 +110,10 @@
     <body>
         <div class="container">
             <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2">
+                <div class="col-xs-10 col-xs-offset-1">
                     <div class="analysis-container">
-                        <canvas id="myChart" width="400" height="400"></canvas>
+                        <h2>Clarity of Speech</h2>
+                        <canvas id="clarity" class="chart" width="400" height="400"></canvas>
                     </div>
                 </div>
             </div>
