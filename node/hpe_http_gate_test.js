@@ -20,6 +20,7 @@ analyze_report = {
     analyzers: {}
 }
 db_gate.create_analyze_report(analyze_report);
+db_gate.get_analyze_report(rand_task_id);
 
 // TODO: place with real wav file
 hpe_http_gate.recognizespeech('simple_audio1.m4a', function() {

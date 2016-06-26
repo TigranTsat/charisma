@@ -109,6 +109,24 @@ module.exports = function() {
         console.log("Inside 'create_analyze_report' with id = " + report.report_id);
         global.db.insert_val("reports", report);
         return report;
+    },
+    this.get_analyze_report = function(report_id) {
+        console.log("Inside 'get_analyze_report' with report_id = " + report_id);
+        list_of_suited_reports = global.db.select_values("reports", function (entry) {
+            if (entry.report_id == report_id) {
+                return entry
+            }
+        });
+        if (list_of_suited_reports.length != 1) {
+            mgs = "Failure to find report. Length == " + list_of_suited_reports.length + ". Needed 1";
+            console.error(mgs);
+            throw { name: mgs }
+        }
+        res = list_of_suited_reports[0];
+        if (res == undefined) {
+            console.error("Point 0987: res is undefined");
+        }
+        return res;
     }
 
     return this;
