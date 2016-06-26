@@ -52,6 +52,7 @@ app.get('/get_analysis', function(req, res){
     var report = db_gate.get_analyze_report(task_id);
     res.json(report);
 });
+
 app.route('/upload_file')
     .post(function (req, res, next) {
 
@@ -63,8 +64,8 @@ app.route('/upload_file')
             fstream = fs.createWriteStream(__dirname + '/files/' + file_id);
             file.pipe(fstream);
             console.log("Created pipe")
-            fstream.on('close', function () {    
-                console.log("Upload Finished of " + filename);    
+            fstream.on('close', function () {
+                console.log("Upload Finished of " + filename);
                 task_status = db_gate.create_task_id(file_id);
                 // TODO: use date or timestamp instead of filename
                 business_logic.start_audio_processing(file_id, filename);
