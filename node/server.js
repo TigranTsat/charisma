@@ -4,11 +4,13 @@ var express = require("express");
 var db_gate = require("./db_gate")();
 var analyzers = require('./analyzers.js')
 
-//path module
+var busboy = require('connect-busboy'); //middleware for form/file upload
+var fs = require('fs-extra');       //File System - for file manipulation
 var path = require("path");
 
 var app = express();
 var bodyParser = require('body-parser');
+app.use(busboy());
 app.use(bodyParser.urlencoded());
 
 // static content
@@ -49,7 +51,23 @@ app.get('/get_analysis', function(req, res){
     // TODO: query db for report
     res.json({todo:"TODO"});
 });
+app.route('/upload_file')
+    .post(function (req, res, next) {
 
+        var fstream;
+        req.pipe(req.busboy);
+        req.busboy.on('file', function (fieldname, file, filename) {
+            var file_id = req.query.file_id;
+            console.log("Uploading: " + filename + " id = " + file_id);
+            fstream = fs.createWriteStream(__dirname + '/files/' + file_id);
+            file.pipe(fstream);
+            console.log("Created pipe")
+            fstream.on('close', function () {    
+                console.log("Upload Finished of " + filename);              
+                res.redirect('back');           //where to go next
+            });
+        });
+    });
 
 app.listen(6789);
 console.log("Running in localhost at port 6789");
